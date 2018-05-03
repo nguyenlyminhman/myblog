@@ -5,8 +5,8 @@ router.use("/admin", require(__dirname+"/admin"));
 router.use("/blog", require(__dirname+"/blog"));
 
 router.get("/", (req,res)=>{
-    // res.json({"message":"This is home page"});
-    res.render("index");
+    res.json({"message":"This is home page"});
+    // res.render("signup");
 });
 
 module.exports = router;

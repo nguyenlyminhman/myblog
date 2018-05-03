@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
     port: config.get("mysql.port")
 });
 
-connection.connect();
+// connection.connect();
 
 getConnection = () => {
     if(connection){

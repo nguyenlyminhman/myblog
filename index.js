@@ -4,9 +4,11 @@ let bodyParser = require("body-parser");
 let app = express();
 
 app.use(bodyParser.json());
-app.set("views",__dirname+"/apps/views");
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.set("views", __dirname + "/apps/views");
 app.set("view engine", "ejs");
-app.use("/static", express.static(__dirname+"/public"));
+app.use("/static", express.static(__dirname + "/public"));
 
 
 let controller = require(__dirname + "/apps/controllers");
