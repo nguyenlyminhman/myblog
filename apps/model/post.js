@@ -1,6 +1,7 @@
 let db = require("../common/database");
 let conn = db.getConnection();
 let q = require('q');
+let utils = require('../utils/utils')
 
 module.exports = {
 
@@ -40,11 +41,23 @@ module.exports = {
         });
         return defer.promise;
     },
+    
+    getPostBySeolink(seolink) {
+        var defer = q.defer();
+        var query = conn.query("Select * from post where ?", { seolink: seolink }, (err, result) => {
+            if (err) {
+                defer.reject(err + '');
+            } else {
+                defer.resolve(result);
+            }
+        });
+        return defer.promise;
+    },
     updatePostById(params) {
         if (params) {
             var defer = q.defer();
-            var query = conn.query("Update post set title = ?, content=?, author=?, update_at=? where id=?",
-                [params.title, params.content, params.author, new Date(), params.id],
+            var query = conn.query("Update post set title = ?, content=?, author=?, seolink=?, update_at=? where id=?",
+                [params.title, params.content, params.author, utils.removeSpace(params.title), new Date(), params.id],
                 (err, result) => {
                     if (err) {
                         defer.reject(err + '');

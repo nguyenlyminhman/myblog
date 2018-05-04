@@ -45,16 +45,17 @@ router.get("/", utils.requireLogin, (req, res, next) => {
 
 
 router.get("/post/new", utils.requireLogin, (req, res) => {
-    res.render("admin/post/new",{data:{admin: req.session.user}});
+    res.render("admin/post/new", { data: { admin: req.session.user } });
 });
 
 router.post("/post/new", utils.requireLogin, (req, res) => {
     let post = req.body;
     let now = new Date();
 
+    post.seolink = utils.removeSpace(post.title);
     post.create_at = now;
     post.update_at = now;
-
+    console.log(post)
     let data = postModel.addNewPost(post);
     data.then(result => {
         res.redirect("/admin")
@@ -100,7 +101,7 @@ router.put("/post/edit", utils.requireLogin, (req, res) => {
     }
 });
 
-router.delete("/post/delete",  utils.requireLogin, (req, res) => {
+router.delete("/post/delete", utils.requireLogin, (req, res) => {
     let params = req.body;
     let data = postModel.deletePostById(params.id);
     if (!data) {
@@ -129,7 +130,7 @@ router.get("/users", utils.requireLogin, (req, res) => {
 });
 
 router.get("/users/signup", utils.requireLogin, (req, res) => {
-    res.render("admin/signup", { data: {admin: req.session.user} });
+    res.render("admin/signup", { data: { admin: req.session.user } });
 });
 
 router.post("/users/signup", utils.requireLogin, async (req, res) => {

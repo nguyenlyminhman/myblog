@@ -15,8 +15,8 @@ router.get("/", (req, res) => {
     })
 });
 
-router.get("/post/:id" + ".html", (req, res) => {
-    let data = postModel.getPostById(req.params.id);
+router.get("/post/:seolink" + ".html", (req, res) => {
+    let data = postModel.getPostBySeolink(req.params.seolink);
     data.then(post => {
         let data = {
             posts: post[0],
