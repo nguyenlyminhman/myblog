@@ -30,19 +30,17 @@ function formatDate(date) {
     <body>
         <%- include layout/nav %>
             <div class="containner">
-                <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 The User List
-                                <!-- <div style="float:right; font-size: 100%; position: relative; top: -8px;">
-                                    <a href="admin/post/new" class="btn btn-success">
-                                        <span class="glyphicon glyphicon-circle-arrow-right
-                                        "></span>
+                                <div style="float:right; font-size: 100%; position: relative; top: -8px;">
+                                    <a href="/admin/users/signup" class="btn btn-success">
+                                        <span class="glyphicon glyphicon-user"></span>
                                         New User
-                                        <span class="glyphicon glyphicon-hand-right"></span>
+                                        
                                     </a>
-                                </div> -->
+                                </div>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -79,8 +77,8 @@ function formatDate(date) {
                                                             <%=formatDate(us.update_at)%>
                                                         </td>
                                                         <td>
-                                                            <a href="" class="btn btn-success">Edit</a>
-                                                            <button class="btn btn-danger btn-delete">Delete</button>
+                                                            <a href="" class="btn btn-success"> <span class="glyphicon glyphicon-pencil"> </span></a>
+                                                            <button class="btn btn-danger btn-delete"><span class="glyphicon glyphicon-remove"> </span></button>
                                                         </td>
                                                     </tr>
                                                     <%})%>
@@ -95,7 +93,6 @@ function formatDate(date) {
                         </div>
                     </div>
                 </div>
-            </div>
     </body>
 
     <%- include layout/footer %>

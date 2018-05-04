@@ -1,13 +1,12 @@
 function Post() {
     function bindEvent() {
-        $(".btn-post").click(function (e) {
+        $(".btn-update").click(function (e) {
             var params = {
                 id: $(".id").val(),
                 title: $(".title").val(),
-                content: $(".content").val(),
+                content:  CKEDITOR.instances['content'].getData(),
                 author: $(".author").val()
             };
-            console.log(params);
             var base_url = location.protocol + "//" + document.domain + ":" + location.port;
             $.ajax({
                 url: base_url + "/admin/post/edit",

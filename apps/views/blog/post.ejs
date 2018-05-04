@@ -1,0 +1,54 @@
+<%-include header%>
+<%
+    function formatDate(date) {
+      if (date == null)
+      {
+        return "";
+      } else {
+        var date = new Date(date);
+        var d = date.getDate();
+        var m = date.getMonth() + 1;
+        if(d<10){
+            d='0'+d;
+        }
+        if(m<10){
+            m='0'+m;
+        }
+        var y = date.getFullYear();
+        return y + '/' + m + '/' + d;
+      }
+    }
+    %>
+  
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url('/static/theme/img/home-bg.jpg')">
+        <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-heading">
+              <h1><%=data.posts.title%></h1>
+              <span class="meta">Posted by
+                <a href="#"><%=data.posts.author%></a>
+                on <%=formatDate(data.posts.create_at)%></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto" style="text-align: justify">
+            <%- data.posts.content %>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <%-include footer%>

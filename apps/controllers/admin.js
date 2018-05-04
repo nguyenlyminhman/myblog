@@ -2,41 +2,8 @@ let express = require("express");
 let router = express.Router();
 let userModel = require("../model/users");
 let postModel = require("../model/post");
-let utils = require("../utils/encrypt")
+let utils = require("../utils/utils")
 
-router.get("/", (req, res) => {
-    let data = postModel.getAllPost();
-    data.then(post => {
-        let data = {
-            posts: post,
-            error: false
-        }
-        res.render("admin/dashboard", { data: data });
-    }).catch(err => {
-        res.render("admin/dashboard", { data: { error: true } });
-    })
-});
-
-
-router.get("/signup", (req, res) => {
-    res.render("signup", { data: {} });
-});
-
-router.post("/signup", async (req, res) => {
-    var user = req.body;
-    var hashePassword = utils.hashPassword(user.password);
-    user = {
-        email: user.email,
-        password: hashePassword,
-        first_name: user.firstname,
-        last_name: user.lastname
-    }
-    userModel.addUser(user).then(data => {
-        res.render("signup", { data: { success: "Added successfully!" } });
-    }).catch(err => {
-        res.render("signup", { data: { error: "Email was existed!" } });
-    })
-});
 
 router.get("/signin", (req, res) => {
     res.render("signin", { data: {} });
@@ -58,14 +25,22 @@ router.post("/signin", (req, res) => {
             res.render("signin", { data: { error: "Email was not existed!" } });
         })
     }
-
-
-    // if(!result){
-    //     res.render("signup", { data: {error:"Error occurs!"} });
-    // }else{
-    //     res.render("signup", { data: {success:"Added successfully!"} });
-    // }
 });
+
+
+router.get("/", (req, res, next) => {
+    let data = postModel.getAllPost();
+    data.then(post => {
+        let data = {
+            posts: post,
+            error: false
+        }
+        res.render("admin/dashboard", { data: data });
+    }).catch(err => {
+        res.render("admin/dashboard", { data: { error: true } });
+    })
+});
+
 
 router.get("/post/new", (req, res) => {
     res.render("admin/post/new");
@@ -149,5 +124,29 @@ router.get("/users", (req, res) => {
     })
 });
 
+router.get("/users/signup", (req, res) => {
+    res.render("admin/signup", { data: {} });
+});
+
+router.post("/users/signup", async (req, res) => {
+    var user = req.body;
+    var hashePassword = utils.hashPassword(user.password);
+    user = {
+        email: user.email,
+        password: hashePassword,
+        first_name: user.firstname,
+        last_name: user.lastname
+    }
+    userModel.addUser(user).then(data => {
+        res.render("admin/signup", { data: { success: "Added successfully!" } });
+    }).catch(err => {
+        res.render("admin/signup", { data: { error: "Email was existed!" } });
+    })
+});
+
+router.get('/logout', (req, res) => {
+    req.session.user = null;
+    res.redirect('/admin/signin');
+});
 module.exports = router;
 
