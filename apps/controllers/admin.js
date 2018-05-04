@@ -19,7 +19,7 @@ router.post("/signin", (req, res) => {
                 res.render("signin", { data: { error: "Email was not existed!" } });
             } else {
                 req.session.user = user;
-                res.redirect("/admin/")
+                res.redirect("/admin")
             }
         }).catch(err => {
             res.render("signin", { data: { error: "Email was not existed!" } });
@@ -28,10 +28,12 @@ router.post("/signin", (req, res) => {
 });
 
 
-router.get("/", (req, res, next) => {
+router.get("/", utils.requireLogin, (req, res, next) => {
     let data = postModel.getAllPost();
+
     data.then(post => {
         let data = {
+            admin: req.session.user,
             posts: post,
             error: false
         }
@@ -42,11 +44,11 @@ router.get("/", (req, res, next) => {
 });
 
 
-router.get("/post/new", (req, res) => {
-    res.render("admin/post/new");
+router.get("/post/new", utils.requireLogin, (req, res) => {
+    res.render("admin/post/new",{data:{admin: req.session.user}});
 });
 
-router.post("/post/new", (req, res) => {
+router.post("/post/new", utils.requireLogin, (req, res) => {
     let post = req.body;
     let now = new Date();
 
@@ -62,7 +64,7 @@ router.post("/post/new", (req, res) => {
 });
 
 
-router.get("/post/edit/:id", (req, res) => {
+router.get("/post/edit/:id", utils.requireLogin, (req, res) => {
     let params = req.params;
     let id = params.id;
 
@@ -71,6 +73,7 @@ router.get("/post/edit/:id", (req, res) => {
         data.then(result => {
             let post = result[0];
             let data = {
+                admin: req.session.user,
                 post: post,
                 error: false
             }
@@ -83,7 +86,7 @@ router.get("/post/edit/:id", (req, res) => {
     }
 });
 
-router.put("/post/edit", (req, res) => {
+router.put("/post/edit", utils.requireLogin, (req, res) => {
     let params = req.body;
     let data = postModel.updatePostById(params);
     if (!data) {
@@ -97,7 +100,7 @@ router.put("/post/edit", (req, res) => {
     }
 });
 
-router.delete("/post/delete", (req, res) => {
+router.delete("/post/delete",  utils.requireLogin, (req, res) => {
     let params = req.body;
     let data = postModel.deletePostById(params.id);
     if (!data) {
@@ -111,10 +114,11 @@ router.delete("/post/delete", (req, res) => {
     }
 })
 
-router.get("/users", (req, res) => {
+router.get("/users", utils.requireLogin, (req, res) => {
     let data = userModel.getAllUser();
     data.then(result => {
         let data = {
+            admin: req.session.user,
             user: result,
             error: false
         }
@@ -124,11 +128,11 @@ router.get("/users", (req, res) => {
     })
 });
 
-router.get("/users/signup", (req, res) => {
-    res.render("admin/signup", { data: {} });
+router.get("/users/signup", utils.requireLogin, (req, res) => {
+    res.render("admin/signup", { data: {admin: req.session.user} });
 });
 
-router.post("/users/signup", async (req, res) => {
+router.post("/users/signup", utils.requireLogin, async (req, res) => {
     var user = req.body;
     var hashePassword = utils.hashPassword(user.password);
     user = {
@@ -144,7 +148,7 @@ router.post("/users/signup", async (req, res) => {
     })
 });
 
-router.get('/logout', (req, res) => {
+router.get('/logout', utils.requireLogin, (req, res) => {
     req.session.user = null;
     res.redirect('/admin/signin');
 });

@@ -12,6 +12,14 @@
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+
+            <li>
+                <%if(data.admin){%>
+                    <a href="">
+                         Hello, <%=data.admin.first_name%> <%=data.admin.last_name%> <span class="glyphicon glyphicon-user"></span>
+                    </a>
+                    <%}%>
+            </li>
             <li>
                 <a href="/admin/logout">
                     <span class="glyphicon glyphicon-log-out"></span> Logout</a>

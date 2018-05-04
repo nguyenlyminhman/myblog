@@ -29,7 +29,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Author</label>
-                                        <input type="text" name="author" minlength="4" class="form-control" required/>
+                                        <input type="text" name="author" minlength="4" value="<%=data.admin.first_name%> <%=data.admin.last_name%>" class="form-control" required/>
                                     </div>
                                     <div class="form-group">
                                         
@@ -50,5 +50,8 @@
         </div>
 </body>
 <% include ../layout/footer %>
-
+<script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('content');
+</script>
 </html>

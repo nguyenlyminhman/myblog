@@ -6,7 +6,7 @@ module.exports = {
 
     getAllPost() {
         var defer = q.defer();
-        var query = conn.query("Select * from post", (err, result) => {
+        var query = conn.query("Select * from post order by id desc", (err, result) => {
             if (err) {
                 defer.reject(err + '');
             } else {

@@ -14,9 +14,10 @@ module.exports = {
         return bcrypt.compareSync(password, hash);
     },
 
-    requireLogin(req, res) {
-        if (!req.user)
+    requireLogin(req, res, next) {
+        if (!req.session.user)
             return res.redirect('/admin/signin');
+        next();
     }
 }
 
