@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
 // connection.connect();
 
 getConnection = () => {
-    if(connection){
+    if(!connection){
         connection.connect();
     }
     return connection;

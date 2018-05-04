@@ -1,10 +1,21 @@
 let express = require("express");
 let router = express.Router();
 let userModel = require("../model/users");
+let postModel = require("../model/post");
 let utils = require("../utils/encrypt")
 
 router.get("/", (req, res) => {
-    res.json({ "message": "This is admin page" });
+    let data = postModel.getAllPost();
+    data.then(post => {
+        let data = {
+            posts: post,
+            error: false
+        }
+        res.render("admin/dashboard", { data: data });
+
+    }).catch(err => {
+        res.render("admin/dashboard", { data: { error: true } });
+    })
 });
 
 router.get("/signup", (req, res) => {
@@ -44,9 +55,9 @@ router.post("/signin", (req, res) => {
         userModel.getUserByEmail(params.email).then(data => {
             var user = data[0];
             var status = utils.comparePassword(params.password, user.password);
-            if(!status){
+            if (!status) {
                 res.render("signin", { data: { error: "Email was not existed!" } });
-            }else{
+            } else {
                 req.session.user = user;
                 res.redirect("/admin/")
             }
