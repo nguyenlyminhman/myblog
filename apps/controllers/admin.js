@@ -31,8 +31,6 @@ router.post("/signup", async (req, res) => {
         first_name: user.firstname,
         last_name: user.lastname
     }
-    console.log(user);
-
     userModel.addUser(user).then(data => {
         res.render("signup", { data: { success: "Added successfully!" } });
     }).catch(err => {
@@ -118,7 +116,7 @@ router.put("/post/edit", (req, res) => {
     } else {
         data.then(result => {
             res.json({ status_code: 200 });
-        }).catch(err=>{
+        }).catch(err => {
             res.json({ status_code: 500 });
         })
     }
@@ -132,11 +130,24 @@ router.delete("/post/delete", (req, res) => {
     } else {
         data.then(result => {
             res.json({ status_code: 200 });
-        }).catch(err=>{
+        }).catch(err => {
             res.json({ status_code: 500 });
         })
     }
 })
+
+router.get("/users", (req, res) => {
+    let data = userModel.getAllUser();
+    data.then(result => {
+        let data = {
+            user: result,
+            error: false
+        }
+        res.render("admin/user", { data: data });
+    }).catch(err => {
+        res.render("admin/user", { data: { error: true } });
+    })
+});
 
 module.exports = router;
 

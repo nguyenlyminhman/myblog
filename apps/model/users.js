@@ -20,7 +20,7 @@ module.exports = {
     getUserByEmail(email) {
         if (email) {
             var defer = q.defer();
-            var query = conn.query("Select * from users where ?", {email:email}, (err, result) => {
+            var query = conn.query("Select * from users where ?", { email: email }, (err, result) => {
                 if (err) {
                     defer.reject(err + '');
                 } else {
@@ -30,5 +30,17 @@ module.exports = {
             return defer.promise;
         }
         return false;
+    },
+
+    getAllUser() {
+        var defer = q.defer();
+        var query = conn.query("Select * from users", (err, result) => {
+            if (err) {
+                defer.reject(err + '');
+            } else {
+                defer.resolve(result);
+            }
+        })
+        return defer.promise;
     }
 }

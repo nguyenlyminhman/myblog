@@ -7,6 +7,12 @@ function formatDate(date) {
     var date = new Date(date);
     var d = date.getDate();
     var m = date.getMonth() + 1;
+    if(d<10){
+        d='0'+d;
+    }
+    if(m<10){
+        m='0'+m;
+    }
     var y = date.getFullYear();
     return y + '/' + m + '/' + d;
   }
