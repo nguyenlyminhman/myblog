@@ -1,7 +1,8 @@
 let express = require("express");
 let config = require("config");
 let bodyParser = require("body-parser");
-var session = require('express-session')
+var session = require("express-session");
+let socket = require("socket.io");
 
 let app = express();
 
@@ -29,6 +30,8 @@ app.use(controller);
 let host = config.get("server.host");
 let port = config.get("server.port");
 
-app.listen(port, host, () => {
+let server = app.listen(port, host, () => {
     console.log("Server is running on port", port);
-})
+});
+
+let io = socket(server);
