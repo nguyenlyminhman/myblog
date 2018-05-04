@@ -12,11 +12,11 @@ router.get("/", (req, res) => {
             error: false
         }
         res.render("admin/dashboard", { data: data });
-
     }).catch(err => {
         res.render("admin/dashboard", { data: { error: true } });
     })
 });
+
 
 router.get("/signup", (req, res) => {
     res.render("signup", { data: {} });
@@ -38,17 +38,12 @@ router.post("/signup", async (req, res) => {
     }).catch(err => {
         res.render("signup", { data: { error: "Email was existed!" } });
     })
-
-    // if(!result){
-    //     res.render("signup", { data: {error:"Error occurs!"} });
-    // }else{
-    //     res.render("signup", { data: {success:"Added successfully!"} });
-    // }
 });
 
 router.get("/signin", (req, res) => {
     res.render("signin", { data: {} });
 });
+
 router.post("/signin", (req, res) => {
     var params = req.body;
     if (params.email) {
@@ -73,5 +68,25 @@ router.post("/signin", (req, res) => {
     //     res.render("signup", { data: {success:"Added successfully!"} });
     // }
 });
+
+router.get("/post/new", (req, res) => {
+    res.render("admin/post/new");
+});
+
+router.post("/post/new", (req, res) => {
+    let post = req.body;
+    let now = new Date();
+
+    post.create_at = now;
+    post.update_at = now;
+
+    let data = postModel.addNewPost(post);
+    data.then(result => {
+        res.redirect("/admin")
+    }).catch(err => {
+
+    })
+});
+
 module.exports = router;
 

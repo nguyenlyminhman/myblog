@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../layout/head %>
+</head>
+
+<body>
+    <% include ../layout/nav %>
+        <div class="containner">
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <form action="/admin/post/new" method="POST">
+                    <div class="col-lg-10">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                New Post
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <div class="form-group">
+                                        <label for="email">Title</label>
+                                        <input type="text" name="title" min="4" class="form-control" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Content</label>
+                                        <textarea name="content" class="form-control" rows="5" required> </textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Author</label>
+                                        <input type="text" name="author" minlength="4" class="form-control" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        
+                                        <input type="submit" class="btn btn-success" value="Post" required/>
+                                        <input type="reset" class="btn btn-default" value="Reset" required/>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                </div>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                    </div>
+                </form>
+                <div class="col-lg-1"></div>
+            </div>
+        </div>
+</body>
+<% include ../layout/footer %>
+
+</html>
