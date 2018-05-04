@@ -8,10 +8,16 @@
 <body>
     <% include ../layout/nav %>
         <div class="containner">
-            <div class="row">
                 <div class="col-lg-1"></div>
                 <form action="/admin/post/new" method="POST">
                     <div class="col-lg-10">
+                        <div style=<% if(!data || !data.error){ "display: none;"}%> class="alert alert-danger">
+                            <%if (data && data.error) {%>
+                                <span>
+                                    <%= data.error %>
+                                </span>
+                                <%}%>
+                        </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 New Post
@@ -21,19 +27,19 @@
                                 <div class="table-responsive">
                                     <div class="form-group">
                                         <label for="email">Title</label>
-                                        <input type="text" name="title" min="4" class="form-control" required/>
+                                        <input type="text" name="title" min="4" class="form-control" value="<%= data.post.title %>" required/>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Content</label>
-                                        <textarea name="content" class="form-control" rows="5" required> </textarea>
+                                        <textarea name="content" class="form-control" rows="5" required> <%= data.post.content %></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Author</label>
-                                        <input type="text" name="author" minlength="4" class="form-control" required/>
+                                        <input type="text" name="author" minlength="4" class="form-control" value="<%= data.post.author %>" required/>
                                     </div>
                                     <div class="form-group">
-                                        
-                                        <input type="submit" class="btn btn-success" value="Post" required/>
+
+                                        <input type="submit" class="btn btn-success" value="Update" required/>
                                         <input type="reset" class="btn btn-default" value="Reset" required/>
                                     </div>
 
@@ -47,7 +53,6 @@
                 </form>
                 <div class="col-lg-1"></div>
             </div>
-        </div>
 </body>
 <% include ../layout/footer %>
 

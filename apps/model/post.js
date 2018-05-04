@@ -28,5 +28,16 @@ module.exports = {
             return defer.promise;
         }
         return false;
+    },
+    getPostById(id) {
+        var defer = q.defer();
+        var query = conn.query("Select * from post where ?", { id: id }, (err, result) => {
+            if (err) {
+                defer.reject(err + '');
+            } else {
+                defer.resolve(result);
+            }
+        });
+        return defer.promise;
     }
 }

@@ -84,9 +84,30 @@ router.post("/post/new", (req, res) => {
     data.then(result => {
         res.redirect("/admin")
     }).catch(err => {
-
+        res.render("admin/post/new", { data: { error: false } })
     })
 });
 
+
+router.get("/post/edit/:id", (req, res) => {
+    let params = req.params;
+    let id = params.id;
+
+    let data = postModel.getPostById(id);
+    if (data) {
+        data.then(result => {
+            let post = result[0];
+            let data = {
+                post: post,
+                error: false
+            }
+            res.render("admin/post/edit", { data: data })
+        }).catch(err => {
+            res.render("admin/post/edit", { data: { error: "Can not get post by its id" } })
+        })
+    }else{
+        res.render("admin/post/edit", { data: { error: "Can not get post by its id" } })
+    }
+});
 module.exports = router;
 
