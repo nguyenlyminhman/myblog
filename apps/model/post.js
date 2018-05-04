@@ -55,5 +55,21 @@ module.exports = {
             return defer.promise;
         }
         return false;
+    },
+    deletePostById(id) {
+        if (id) {
+            var defer = q.defer();
+            var query = conn.query("Delete from post where id=?",
+                [id],
+                (err, result) => {
+                    if (err) {
+                        defer.reject(err + '');
+                    } else {
+                        defer.resolve(result);
+                    }
+                });
+            return defer.promise;
+        }
+        return false;
     }
 } 

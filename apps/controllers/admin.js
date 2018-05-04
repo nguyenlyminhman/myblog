@@ -122,6 +122,20 @@ router.put("/post/edit", (req, res) => {
             res.json({ status_code: 500 });
         })
     }
+});
+
+router.delete("/post/delete", (req, res) => {
+    let params = req.body;
+    let data = postModel.deletePostById(params.id);
+    if (!data) {
+        res.json({ status_code: 500 });
+    } else {
+        data.then(result => {
+            res.json({ status_code: 200 });
+        }).catch(err=>{
+            res.json({ status_code: 500 });
+        })
+    }
 })
 
 module.exports = router;
