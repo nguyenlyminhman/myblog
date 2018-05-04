@@ -9,7 +9,7 @@
     <% include ../layout/nav %>
         <div class="containner">
                 <div class="col-lg-1"></div>
-                <form action="/admin/post/new" method="POST">
+                <form action="" method="">
                     <div class="col-lg-10">
                         <div style=<% if(!data || !data.error){ "display: none;"}%> class="alert alert-danger">
                             <%if (data && data.error) {%>
@@ -20,26 +20,27 @@
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                New Post
+                                Update post
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <div class="form-group">
                                         <label for="email">Title</label>
-                                        <input type="text" name="title" min="4" class="form-control" value="<%= data.post.title %>" required/>
+                                        <input type="hidden" name="id" min="4" class="form-control id" value="<%= data.post.id %>" required/>
+                                        <input type="text" name="title" min="4" class="form-control title" value="<%= data.post.title %>" required/>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Content</label>
-                                        <textarea name="content" class="form-control" rows="5" required> <%= data.post.content %></textarea>
+                                        <textarea name="content" class="form-control content" rows="5" required> <%= data.post.content %></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Author</label>
-                                        <input type="text" name="author" minlength="4" class="form-control" value="<%= data.post.author %>" required/>
+                                        <input type="text" name="author" minlength="4" class="form-control author" value="<%= data.post.author %>" required/>
                                     </div>
                                     <div class="form-group">
 
-                                        <input type="submit" class="btn btn-success" value="Update" required/>
+                                        <input type="button" class="btn btn-success btn-post" value="Update" required/>
                                         <input type="reset" class="btn btn-default" value="Reset" required/>
                                     </div>
 

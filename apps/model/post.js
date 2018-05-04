@@ -39,5 +39,21 @@ module.exports = {
             }
         });
         return defer.promise;
+    },
+    updatePostById(params) {
+        if (params) {
+            var defer = q.defer();
+            var query = conn.query("Update post set title = ?, content=?, author=?, update_at=? where id=?",
+                [params.title, params.content, params.author, new Date(), params.id],
+                (err, result) => {
+                    if (err) {
+                        defer.reject(err + '');
+                    } else {
+                        defer.resolve(result);
+                    }
+                });
+            return defer.promise;
+        }
+        return false;
     }
-}
+} 

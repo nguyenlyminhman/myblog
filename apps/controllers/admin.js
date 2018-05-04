@@ -105,9 +105,24 @@ router.get("/post/edit/:id", (req, res) => {
         }).catch(err => {
             res.render("admin/post/edit", { data: { error: "Can not get post by its id" } })
         })
-    }else{
+    } else {
         res.render("admin/post/edit", { data: { error: "Can not get post by its id" } })
     }
 });
+
+router.put("/post/edit", (req, res) => {
+    let params = req.body;
+    let data = postModel.updatePostById(params);
+    if (!data) {
+        res.json({ status_code: 500 });
+    } else {
+        data.then(result => {
+            res.json({ status_code: 200 });
+        }).catch(err=>{
+            res.json({ status_code: 500 });
+        })
+    }
+})
+
 module.exports = router;
 
