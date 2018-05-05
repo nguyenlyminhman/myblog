@@ -1,11 +1,11 @@
 # myblog
 
 
-# System Requirement
+## System Requirement
 
-# 1. Hardware
+### 1. Hardware
 
-## Minimal
+#### Minimal
 
 * Processor: 2 x 1,6 GHz CPU
 
@@ -13,14 +13,14 @@
 
 * HDD: 1 x 20 GB of free space or more
 
-## Recommend
+#### Recommend
 * Processor: 4 x 1,6 GHz CPU
 
 * RAM: 8 GB
 
 * HDD: 1 x 40 GB of free space or more
 
-# 2. Software
+### 2. Software
 
 * Operating system: Window 8.1, Window 10, Ubuntu 16.04
 
@@ -28,7 +28,7 @@
 
 * Nodejs 8.9.3 version or higher
 
-# Install instruction
+## Install instruction
 ### The myblog Database
 
 * Login to your MySQL, then create database called **myblog**
@@ -47,9 +47,9 @@
 
 * When finishing, type **nodemon index** to run this website
 
-# Access Admin Role
+## Access Admin Role
 
-* http://localhost:3000/admin/sigin
+* http://localhost:3000/admin/signin
 
 * Email: nlmman@myblog.com
 
