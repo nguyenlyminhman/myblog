@@ -1,0 +1,53 @@
+<%-include header%>
+    <header class="masthead" style="background-image: url('/static/theme/img/home-bg.jpg')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading text-left">
+                        <ul id="conversation">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <form>
+                    <input type="text" class="form-control" name="message" id="message" />
+                    <br/>
+                    <button type="button" class="btn btn-primary" id="btn_send">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <%-include footer%>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+        <script type="text/javascript">
+            var socket = io.connect("http://localhost:3000");
+
+            socket.on("connect", () => {
+                let guestname = prompt("What is your name?");
+                socket.emit("addnewguest", guestname)
+            });
+
+            socket.on("update_smg", data => {
+                $("#conversation").append("<b>" + data.sender + " : </b>" + data.message + "<br/>")
+            });
+
+            //Send message event
+            $("#btn_send").click(function (e) {
+                let smg = $("#message").val();
+                $("#message").val("");
+                console.log(smg)
+                socket.emit("send_smg", smg);
+            })
+            // $("form").submit(() => {
+            //     return false;
+            // })
+        </script>

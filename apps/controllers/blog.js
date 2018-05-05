@@ -35,5 +35,13 @@ router.get("/about", (req, res) => {
     }
     res.render("blog/about", { data: data });
 });
+
+router.get("/contact", (req, res) => {
+    let data = {
+        posts: "post",
+        error: false
+    }
+    res.render("blog/contact", { data: data });
+});
 module.exports = router;
 

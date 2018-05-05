@@ -35,3 +35,5 @@ let server = app.listen(port, host, () => {
 });
 
 let io = socket(server);
+
+let socketchat = require('./apps/common/socket-chatwithme')(io);
