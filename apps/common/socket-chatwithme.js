@@ -32,6 +32,18 @@ module.exports = function (io) {
             socket.broadcast.emit("update_smg", data_bro)
         });
 
+        socket.on("disconnect", smg => {
+            for(let i = 0; i < guestnames.length; i++){
+                if(guestnames[i]==socket.guestname){
+                    guestnames.splice(i,1);
+                }
+            }
+            let data_bro = {
+                sender: "Mewo Admin",
+                message: socket.guestname + " has left the group discussion."
+            }
+            socket.broadcast.emit("update_smg", data_bro)
+        });
 
     });
 }
