@@ -4,16 +4,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
-                    <div class="site-heading text-left">
-                        <ul id="conversation">
-
-                        </ul>
+                    <div class="site-heading text-left" style="overflow-y: auto; height: 100px; margin-top: 65px">
+                        <span id="conversation" class="subheading"></span>
                     </div>
                 </div>
             </div>
-
         </div>
     </header>
+
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
@@ -44,10 +42,17 @@
             $("#btn_send").click(function (e) {
                 let smg = $("#message").val();
                 $("#message").val("");
-                console.log(smg)
                 socket.emit("send_smg", smg);
+            });
+
+            $("#message").on('keyup', function (e) {
+                if (e.keyCode == 13) {
+                    let smg = $("#message").val();
+                    $("#message").val("");
+                    socket.emit("send_smg", smg);
+                }
+            });
+            $("form").submit(() => {
+                return false;
             })
-            // $("form").submit(() => {
-            //     return false;
-            // })
         </script>
